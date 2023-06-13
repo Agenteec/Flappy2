@@ -1,9 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include "imgui.h"
 #include "imgui-SFML.h"
+#include "Window.h"
 int main()
 {
-	sf::RenderWindow w(sf::VideoMode(640,480),L"Работает");
+	Window window;
+	window.Render();
 	system("pause");
 	return 0;
 }
