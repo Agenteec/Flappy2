@@ -21,7 +21,10 @@ public:
 				window->close();
 			if (event->type == sf::Event::KeyPressed) {
 				if (event->key.code == sf::Keyboard::Space) {
-					
+					bird.setTexture(bird_tx[1]);
+				}
+				else {
+					bird.setTexture(bird_tx[0]);
 				}
 			}
 		}
