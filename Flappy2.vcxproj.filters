@@ -13,11 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Файлы заголовков\imgui">
-      <UniqueIdentifier>{37e07f03-af62-4ff7-a9e9-218cb8148bba}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Исходные файлы\imgui">
-      <UniqueIdentifier>{08de5e9d-9114-4073-8e00-a3cac87c709c}</UniqueIdentifier>
+      <UniqueIdentifier>{b00a0067-51e9-43c7-a6ae-6cf6c18af823}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\imgui">
+      <UniqueIdentifier>{d24aec07-0827-4849-bf1a-a3c9e2d0de07}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -42,10 +42,19 @@
     <ClCompile Include="imgui\imgui-SFML.cpp">
       <Filter>Исходные файлы\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="GUI.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui\imstb_truetype.h">
+      <Filter>Файлы заголовков\imgui</Filter>
     </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>Файлы заголовков\imgui</Filter>
@@ -71,8 +80,19 @@
     <ClInclude Include="imgui\imstb_textedit.h">
       <Filter>Файлы заголовков\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="imgui\imstb_truetype.h">
-      <Filter>Файлы заголовков\imgui</Filter>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Flappy2.rc">
+      <Filter>Файлы ресурсов</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
