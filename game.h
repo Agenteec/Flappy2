@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include<iostream>
 class game
 {
 private:
@@ -11,6 +12,9 @@ private:
 	/// Спрайт птицы
 	/// </summary>
 	static sf::Sprite bird;
+	//координаты птички 
+	static float x, y;
+	static int speed;
 public:
 	/// <summary>
 	/// Загрузка игровых объектов
@@ -19,7 +23,10 @@ public:
 		bird_tx[0].loadFromFile("Resources\\Images\\bird_1.png");
 		bird_tx[1].loadFromFile("Resources\\Images\\bird_2.png");
 		bird.setTexture(bird_tx[0]);
-		bird.setPosition(200, 200);
+		x = 200;
+		y = 200;
+		speed = 100;
+		bird.setPosition(x, y);
 		bird.setScale(0.2f, 0.2f);
 	}
 	/// <summary>
@@ -38,8 +45,19 @@ public:
 					bird.setTexture(bird_tx[0]);
 				}
 			}
-		
-		
+		}
+		sf::Clock clock;
+		sf::Time deltatime = clock.restart();
+		float dts = deltatime.asSeconds();
+		if (y <= 760) {
+			y += speed * dts;
+		}
+		else {
+			y = 5;
+
+		}
+		bird.setPosition(x, y);
+		window->clear(sf::Color(0, 0, 0));
 		window->draw(bird);
 
 		
