@@ -57,7 +57,7 @@ public:
 			}       
 		score_txt.setFont(font);
 		score_txt.setFillColor(sf::Color(255, 255, 255));
-		score_txt.setString("Your score: " + std::to_string(score));
+		score_txt.setString(L"Ñ÷¸ò: " + std::to_string(score));
 		score_txt.setCharacterSize(30);
 		score_txt.setPosition(800.f, 50.f);
 		PairRect temp1;
@@ -184,10 +184,10 @@ public:
 			y += velocity;
 		}
 		else {
-			y = 5.f;
+			y = -34.f;
 
 		}
-		if (y <= 4.f) {
+		if (y <= -35.f) {
 			y = 758.f;
 		}
 		bird.setRotation(angle);
