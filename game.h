@@ -34,6 +34,8 @@ private:
 	static std::vector<PairRect> PR;
 	static sf::Text score_txt;
 	static sf::Font font;
+	static sf::SoundBuffer ChBuff[6];
+	static sf::Sound Ch;
 public:
 	/// <summary>
 	/// Загрузка игровых объектов
