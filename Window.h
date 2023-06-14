@@ -64,13 +64,14 @@ public:
 				{
 					if (event->key.code == sf::Keyboard::Escape&&!onMainMenu)
 					{
-
+						onPauseMenu = 1;
 					}
 				}
 			}
 			ImGui::SFML::Update(*window, sf::seconds(1.f / 60.f));
 			if (onGame){game::on_game(window);}
 			if (onMainMenu){GUI::MainMenu(onGame,onMainMenu);}
+			if (onPauseMenu) { GUI::PauseMenu(onGame, onMainMenu, onPauseMenu); }
 			//**//
 			
 			ImGui::SFML::Render(*window);

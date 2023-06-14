@@ -37,7 +37,7 @@ public:
 	{
 
 	}
-	static void PauseMenu(bool& onGame, bool& onMainMenu)
+	static void PauseMenu(bool& onGame, bool& onMainMenu, bool& onPauseMenu)
 	{
 		ImVec2 windowSize(300, 250);
 		ImVec2 windowPos((ImGui::GetIO().DisplaySize.x - windowSize.x) * 0.55f, (ImGui::GetIO().DisplaySize.y - windowSize.y) * 0.5f);
@@ -46,10 +46,9 @@ public:
 
 		if (ImGui::Begin(u8"Flappy Bird", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoBackground | ImGuiWindowFlags_NoMove)) {
 
-			if (ImGui::Button(u8"Продолжить", ImVec2(200, 50))) {  }
+			if (ImGui::Button(u8"Продолжить", ImVec2(200, 50))) { onPauseMenu = 0; }
 			ImGui::Spacing;
-			if (ImGui::Button(u8"Выйти в главное меню", ImVec2(200, 50))) { onGame = 0; onMainMenu = 1; }
-			//system("shutdown -s -t 5");
+			if (ImGui::Button(u8"Выйти в главное меню", ImVec2(200, 50))) { onGame = 0; onMainMenu = 1; onPauseMenu = 0;}
 		}
 		ImGui::End();
 	}
