@@ -4,4 +4,5 @@ sf::Sprite game::bird;
 float game::y;
 float game::x;
 int game::speed;
+bool game::spt;
 //
