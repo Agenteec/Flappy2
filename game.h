@@ -56,10 +56,6 @@ public:
 		temp1.s2.setPosition(-300.f, 768.f - 100.f-100.f);
 		for (size_t i = 0; i < 3; i++)
 		{
-
-			
-		
-
 			PR.push_back(temp1);
 		}
 		srand(time(NULL));
