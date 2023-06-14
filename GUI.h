@@ -61,7 +61,18 @@ public:
 	}
 	static void GameOverMenu()
 	{
+		ImVec2 windowSize(300, 250);
+		ImVec2 windowPos((ImGui::GetIO().DisplaySize.x - windowSize.x) * 0.55f, (ImGui::GetIO().DisplaySize.y - windowSize.y) * 0.5f);
+		ImGui::SetNextWindowPos(windowPos, ImGuiCond_Appearing);
+		ImGui::SetNextWindowSize(windowSize);
 
+		if (ImGui::Begin(u8"Игра окончена", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDecoration  | ImGuiWindowFlags_NoMove)) {
+			ImGui::SetNextWindowBgAlpha(0.5f);
+			if (ImGui::Button(u8"Заного", ImVec2(200, 50))) {  }
+			ImGui::Spacing;
+			if (ImGui::Button(u8"Выйти в главное меню", ImVec2(200, 50))) { }
+		}
+		ImGui::End();
 	}
 	
 };

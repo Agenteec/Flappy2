@@ -48,8 +48,8 @@ public:
 		bird.setPosition(x, y);
 		
 		PairRect temp1;
-		 temp1.s1.setSize(sf::Vector2f(60.f, 100.f));
-		temp1.s2.setSize(sf::Vector2f(60.f, 768.f-100.f-100.f));
+		temp1.s1.setSize(sf::Vector2f(60.f, 768.f));
+		temp1.s2.setSize(sf::Vector2f(60.f, 768.f));
 		temp1.s1.setFillColor(sf::Color(36, 252, 49));
 		temp1.s2.setFillColor(sf::Color(36, 252, 49));
 		temp1.s1.setPosition(-300.f, 0.f);
@@ -62,7 +62,7 @@ public:
 
 			PR.push_back(temp1);
 		}
-		
+		srand(time(NULL));
 		
 		
 	}
@@ -101,13 +101,14 @@ public:
 		{
 			bool fl=true;
 			if (PR[i].s1.getPosition().x <= -170) {
-				PR[i].s1.setPosition(sf::Vector2f(1124, 0));
 				
-				srand(time(NULL));
-				int p = rand() % 6 + 1;
-				PR[i].s1.setSize(sf::Vector2f(PR[i].s1.getSize().x, 100.f * p));
-				PR[i].s2.setSize(sf::Vector2f(PR[i].s2.getSize().x, 768 - PR[i].s1.getSize().y-100));
-				PR[i].s2.setPosition(sf::Vector2f(1124, 768 - PR[i].s1.getSize().y - 100));
+				
+				
+				int p = rand() %6  + 0;
+				//PR[i].s1.setSize(sf::Vector2f(PR[i].s1.getSize().x, 100.f * p));
+				//PR[i].s2.setSize(sf::Vector2f(PR[i].s2.getSize().x, 768 - PR[i].s1.getSize().y-100));
+				PR[i].s1.setPosition(sf::Vector2f(1124, -PR[i].s1.getSize().y + 100.f * p));
+				PR[i].s2.setPosition(sf::Vector2f(1124, PR[i].s1.getSize().y + PR[i].s1.getPosition().y + 150.f));
 			}
 			if (i > 0) {
 				if ((PR[i].s1.getPosition().x - PR[i - 1].s1.getPosition().x)<=400&& (PR[i].s1.getPosition().x - PR[i - 1].s1.getPosition().x) >= -400) {
