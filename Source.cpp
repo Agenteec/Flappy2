@@ -28,7 +28,7 @@ int main()
         // Ошибка при загрузке ресурса
         std::cout << "Error loading resource" << std::endl;
     }
-    system("pause");
+    //system("pause");
 	Window window;
 	window.Render();
 	return 0;
