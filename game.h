@@ -29,10 +29,7 @@ public:
 	/// <param name="event">Событие</param>
 	static void on_game(sf::RenderWindow *window, sf::Event *event) {
 		
-		while (window->pollEvent(*event))
-		{
-			if (event->type == sf::Event::Closed)
-				window->close();
+		
 			if (event->type == sf::Event::KeyPressed) {
 				if (event->key.code == sf::Keyboard::Space) {
 					bird.setTexture(bird_tx[1]);
@@ -41,7 +38,7 @@ public:
 					bird.setTexture(bird_tx[0]);
 				}
 			}
-		}
+		
 		
 		window->draw(bird);
 
