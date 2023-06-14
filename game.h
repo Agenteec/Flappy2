@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include<iostream>
 #include <random>
+#include <SFML/Audio.hpp>
 
 struct PairRect
 {
@@ -28,6 +29,10 @@ private:
 	static float g;
 	static int score;
 	static std::vector<PairRect> PR;
+
+	static sf::SoundBuffer ChBuff[6];
+
+	static sf::Sound Ch;
 public:
 	/// <summary>
 	/// Загрузка игровых объектов
@@ -59,7 +64,12 @@ public:
 			PR.push_back(temp1);
 		}
 		srand(time(NULL));
-		
+		ChBuff[0].loadFromFile("Resources\\Sounds\\Ch\\ch1.wav");
+		ChBuff[1].loadFromFile("Resources\\Sounds\\Ch\\ch2.wav");
+		ChBuff[2].loadFromFile("Resources\\Sounds\\Ch\\ch3.wav");
+		ChBuff[3].loadFromFile("Resources\\Sounds\\Ch\\ch4.wav");
+		ChBuff[4].loadFromFile("Resources\\Sounds\\Ch\\ch5.wav");
+		ChBuff[5].loadFromFile("Resources\\Sounds\\Ch\\ch6.wav");
 		
 	}
 	static void new_game()
@@ -97,12 +107,7 @@ public:
 		{
 			bool fl=true;
 			if (PR[i].s1.getPosition().x <= -170) {
-				
-				
-				
 				int p = rand() %6  + 0;
-				//PR[i].s1.setSize(sf::Vector2f(PR[i].s1.getSize().x, 100.f * p));
-				//PR[i].s2.setSize(sf::Vector2f(PR[i].s2.getSize().x, 768 - PR[i].s1.getSize().y-100));
 				PR[i].s1.setPosition(sf::Vector2f(1124, -PR[i].s1.getSize().y + 100.f * p));
 				PR[i].s2.setPosition(sf::Vector2f(1124, PR[i].s1.getSize().y + PR[i].s1.getPosition().y + 150.f));
 			}
@@ -120,12 +125,16 @@ public:
 	static void game_event(sf::Event* event) {
 		if (event->type == sf::Event::KeyPressed) {
 			if (event->key.code == sf::Keyboard::Space) {
+				if (!spt)
+					rand_ch();
 				spt = true;
 			}
 			
 		}
 		if (event->type == sf::Event::MouseButtonPressed) {
 			if (event->key.code == sf::Mouse::Left) {
+				if (!spt)
+					rand_ch();
 				spt = true;
 			}
 		}
@@ -179,7 +188,12 @@ public:
 		bird.setTexture(bird_tx[spt]);
 		bird.setPosition(x, y);
 	}
-	
+	static void rand_ch()
+	{
+		int p = rand() % 6 + 0;
+		Ch.setBuffer(ChBuff[p]);
+		Ch.play();
+	}
 	
 	
 };

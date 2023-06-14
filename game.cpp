@@ -7,5 +7,7 @@ float game::velocity;
 float game::angle = 0.f;
 bool game::spt;
 float game::g;
+sf::SoundBuffer game::ChBuff[6];
+sf::Sound game::Ch;
 std::vector<PairRect> game::PR;
 //
