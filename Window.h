@@ -21,11 +21,15 @@ class Window
 	/// Запущена ли игра
 	/// </summary>
 	bool onGame;
+
+	bool onMainMenu;
 public:
 	Window():
 		WinW(1024.f),
 		WinH(768.f),
-		onGame(false)
+		onGame(false),
+		onMainMenu(true)
+
 	{
 		//Выделение памяти под оно SFML
 		window = new sf::RenderWindow(sf::VideoMode(WinW, WinH), "FlappyBird");
@@ -46,16 +50,21 @@ public:
 			//**//
 			while (window->pollEvent(*event))
 			{
+				ImGui::SFML::ProcessEvent(*event);
 				if (event->type == sf::Event::Closed)
 					window->close();
 			}
-			if (onGame)
-			{
-				game::on_game(window, event);
-			}
+			ImGui::SFML::Update(*window, sf::seconds(1.f / 60.f));
+			if (onGame){game::on_game(window, event);}
+			if (onMainMenu){}
 			//**//
+			if (ImGui::Button(u8"Играть"))
+			{
+				onGame = onGame ? 0 : 1;
+			}
+			ImGui::SFML::Render(*window);
 			window->display();
-
+			
 
 
 			delete event;
@@ -85,5 +94,21 @@ private:
 		// Настройка стилей для imgui
 		ImGui::StyleColorsLight();
 		ImGui::GetStyle().WindowBorderSize = 0.f;
+
+		ImGuiStyle& style = ImGui::GetStyle(); // получаем текущий стиль
+
+		// изменяем цвет фона кнопок
+		style.Colors[ImGuiCol_Button] = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);
+
+		// изменяем цвет текста на кнопке
+		style.Colors[ImGuiCol_Text] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+
+		// изменяем отступ вокруг кнопки
+		style.FramePadding = ImVec2(10.0f, 5.0f);
+
+		// изменяем выравнивание текста на кнопке
+		style.ButtonTextAlign = ImVec2(0.5f, 0.5f);
+
+
 	}
 };
