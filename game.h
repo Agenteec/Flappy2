@@ -14,9 +14,9 @@ private:
 	static sf::Sprite bird;
 	//координаты птички 
 	static float x, y;
-	static int speed;
+	static float velocity;
 	static bool spt;
-	static const int g = 10;
+	static float g;
 public:
 	/// <summary>
 	/// Загрузка игровых объектов
@@ -30,7 +30,8 @@ public:
 		bird.setOrigin(sf::Vector2f(bird_tx[0].getSize().x*0.05 / 2.f, bird_tx[0].getSize().y*0.05 / 2.f));
 		x = 1024.f/2.f-36.f;
 		y = 360.f;
-		speed = 200.f;
+		velocity = 0.f;
+		g = 9.8f;
 		bird.setPosition(x, y);
 		
 	}
@@ -41,13 +42,25 @@ public:
 	/// <param name="event">Событие</param>
 	static void on_game(sf::RenderWindow* window, sf::Time deltatime) {
 	float dts = deltatime.asSeconds();
+	velocity += g * dts * 0.01f;
+	if (velocity >= 10) {
+		velocity = 10.f;
+	}
+	if (spt) {
+		add_impulse(-5.f*dts*0.1f);
+	}
 	if (y <= 760.f) {
-		y += speed * dts;
+		
+		y += velocity;
 	}
 	else {
 		y = 5.f;
 
 	}
+	if (y <= 4.f) {
+		y = 758.f;
+	}
+
 	bird.setTexture(bird_tx[spt]);
 	bird.setPosition(x, y);
 	window->draw(bird);
@@ -78,6 +91,9 @@ public:
 				spt = false;
 			}
 		}
+	}
+	static void add_impulse(float impulse) {
+		velocity += impulse;
 	}
 	
 	
