@@ -5,4 +5,5 @@ float game::y;
 float game::x;
 int game::speed;
 bool game::spt;
+sf::Clock game::clock;
 //
