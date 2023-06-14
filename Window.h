@@ -59,7 +59,7 @@ public:
 				}
 			}
 			ImGui::SFML::Update(*window, sf::seconds(1.f / 60.f));
-			if (onGame){game::on_game(window, event);}
+			if (onGame){game::on_game(window);}
 			if (onMainMenu){GUI::MainMenu(onGame,onMainMenu);}
 			//**//
 			
