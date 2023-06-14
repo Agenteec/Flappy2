@@ -53,16 +53,11 @@ public:
 				ImGui::SFML::ProcessEvent(*event);
 				if (event->type == sf::Event::Closed)
 					window->close();
+
 			}
 			ImGui::SFML::Update(*window, sf::seconds(1.f / 60.f));
 			if (onGame){game::on_game(window, event);}
-			if (onMainMenu){
-				if (ImGui::Button(u8"Играть"))
-				{
-					onGame = onGame ? 0 : 1;
-					onMainMenu = 0;
-				}
-			}
+			if (onMainMenu){GUI::MainMenu(onGame,onMainMenu);}
 			//**//
 			
 			ImGui::SFML::Render(*window);
@@ -95,7 +90,7 @@ private:
 		ImGui::SFML::UpdateFontTexture();
 
 		// Настройка стилей для imgui
-		ImGui::StyleColorsLight();
+		ImGui::StyleColorsClassic();
 		ImGui::GetStyle().WindowBorderSize = 0.f;
 
 		ImGuiStyle& style = ImGui::GetStyle(); // получаем текущий стиль
