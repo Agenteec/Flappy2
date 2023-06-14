@@ -2,7 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include<iostream>
 #include <random>
+#include <string.h>
+#include <sstream>
 #include <SFML/Audio.hpp>
+
 
 struct PairRect
 {
@@ -29,10 +32,8 @@ private:
 	static float g;
 	static int score;
 	static std::vector<PairRect> PR;
-
-	static sf::SoundBuffer ChBuff[6];
-
-	static sf::Sound Ch;
+	static sf::Text score_txt;
+	static sf::Font font;
 public:
 	/// <summary>
 	/// Загрузка игровых объектов
@@ -51,7 +52,19 @@ public:
 		velocity = 0.f;
 		g = 9.8f;
 		bird.setPosition(x, y);
+		score = 0;
 		
+		if (!font.loadFromFile("Resources\\Fonts\\arialbd.ttf"))
+			{
+				std::cout << "front not found" << std::endl;
+			}       
+		score_txt.setFont(font);
+		score_txt.setFillColor(sf::Color(255, 255, 255));
+		std::stringstream ss;
+		std::wstring str=L"Счёт: "+std::to_wstring(score);
+		score_txt.setString(str);
+		score_txt.setCharacterSize(30);
+		score_txt.setPosition(800.f, 50.f);
 		PairRect temp1;
 		temp1.s1.setSize(sf::Vector2f(60.f, 768.f));
 		temp1.s2.setSize(sf::Vector2f(60.f, 768.f));
@@ -92,6 +105,7 @@ public:
 		bird_move(dts);
 		
 		col_move(dts);
+
 	}
 	
 	for (size_t i = 0; i < PR.size(); i++)
@@ -100,6 +114,7 @@ public:
 		window->draw(PR[i].s2);
 	}
 	window->draw(bird);
+	window->draw(score_txt);
 	
 	}
 	static void col_move(float dts) {
@@ -178,10 +193,10 @@ public:
 			y += velocity;
 		}
 		else {
-			y = 5.f;
+			y = -34.f;
 
 		}
-		if (y <= 4.f) {
+		if (y <= -35.f) {
 			y = 758.f;
 		}
 		bird.setRotation(angle);

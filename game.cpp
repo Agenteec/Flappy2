@@ -7,7 +7,10 @@ float game::velocity;
 float game::angle = 0.f;
 bool game::spt;
 float game::g;
+int game::score;
 sf::SoundBuffer game::ChBuff[6];
 sf::Sound game::Ch;
 std::vector<PairRect> game::PR;
+sf::Text game::score_txt;
+sf::Font game::font;
 //
