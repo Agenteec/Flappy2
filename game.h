@@ -56,6 +56,7 @@ public:
 			y = 5;
 
 		}
+
 		bird.setPosition(x, y);
 		window->clear(sf::Color(0, 0, 0));
 		window->draw(bird);
@@ -64,6 +65,6 @@ public:
 
 
 	}
-
+	
 };
 
