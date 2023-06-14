@@ -53,7 +53,10 @@ public:
 				ImGui::SFML::ProcessEvent(*event);
 				if (event->type == sf::Event::Closed)
 					window->close();
-
+				if (onGame)
+				{
+					game::game_event(event);
+				}
 			}
 			ImGui::SFML::Update(*window, sf::seconds(1.f / 60.f));
 			if (onGame){game::on_game(window, event);}
