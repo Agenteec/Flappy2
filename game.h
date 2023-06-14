@@ -3,6 +3,7 @@
 #include<iostream>
 #include <random>
 
+
 struct PairRect
 {
 	sf::RectangleShape s1;
@@ -28,6 +29,8 @@ private:
 	static float g;
 	static int score;
 	static std::vector<PairRect> PR;
+	static sf::Text score_txt;
+	static sf::Font font;
 public:
 	/// <summary>
 	/// Загрузка игровых объектов
@@ -46,7 +49,17 @@ public:
 		velocity = 0.f;
 		g = 9.8f;
 		bird.setPosition(x, y);
+		score = 0;
 		
+		if (!font.loadFromFile("Resources\\Fonts\\arialbd.ttf"))
+			{
+				std::cout << "front not found" << std::endl;
+			}       
+		score_txt.setFont(font);
+		score_txt.setFillColor(sf::Color(255, 255, 255));
+		score_txt.setString("Your score: " + std::to_string(score));
+		score_txt.setCharacterSize(30);
+		score_txt.setPosition(800.f, 50.f);
 		PairRect temp1;
 		temp1.s1.setSize(sf::Vector2f(60.f, 768.f));
 		temp1.s2.setSize(sf::Vector2f(60.f, 768.f));
@@ -82,6 +95,7 @@ public:
 		bird_move(dts);
 		
 		col_move(dts);
+
 	}
 	
 	for (size_t i = 0; i < PR.size(); i++)
@@ -90,6 +104,7 @@ public:
 		window->draw(PR[i].s2);
 	}
 	window->draw(bird);
+	window->draw(score_txt);
 	
 	}
 	static void col_move(float dts) {
