@@ -56,12 +56,15 @@ public:
 			}
 			ImGui::SFML::Update(*window, sf::seconds(1.f / 60.f));
 			if (onGame){game::on_game(window, event);}
-			if (onMainMenu){}
-			//**//
-			if (ImGui::Button(u8"Играть"))
-			{
-				onGame = onGame ? 0 : 1;
+			if (onMainMenu){
+				if (ImGui::Button(u8"Играть"))
+				{
+					onGame = onGame ? 0 : 1;
+					onMainMenu = 0;
+				}
 			}
+			//**//
+			
 			ImGui::SFML::Render(*window);
 			window->display();
 			
