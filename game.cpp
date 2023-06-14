@@ -7,4 +7,5 @@ float game::velocity;
 float game::angle = 0.f;
 bool game::spt;
 float game::g;
+std::vector<PairRect> game::PR;
 //

@@ -1,6 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include<iostream>
+#include <random>
+
+struct PairRect
+{
+	sf::RectangleShape s1;
+    sf::RectangleShape s2;
+	
+};
 class game
 {
 private:
@@ -18,6 +26,8 @@ private:
 	static float angle;
 	static bool spt;
 	static float g;
+	static int score;
+	static std::vector<PairRect> PR;
 public:
 	/// <summary>
 	/// Загрузка игровых объектов
@@ -25,6 +35,8 @@ public:
 	static void init() {
 		bird_tx[0].loadFromFile("Resources\\Images\\bird_1.png");
 		bird_tx[1].loadFromFile("Resources\\Images\\bird_2.png");
+		bird_tx[0].setSmooth(true);
+		bird_tx[1].setSmooth(true);
 		//bird.setTexture(bird_tx[0]);
 		spt = false;
 		bird.setScale(0.05f, 0.05f);
@@ -34,6 +46,24 @@ public:
 		velocity = 0.f;
 		g = 9.8f;
 		bird.setPosition(x, y);
+		
+		PairRect temp1;
+		 temp1.s1.setSize(sf::Vector2f(60.f, 100.f));
+		temp1.s2.setSize(sf::Vector2f(60.f, 768.f-100.f-100.f));
+		temp1.s1.setFillColor(sf::Color(36, 252, 49));
+		temp1.s2.setFillColor(sf::Color(36, 252, 49));
+		temp1.s1.setPosition(-300.f, 0.f);
+		temp1.s2.setPosition(-300.f, 768.f - 100.f-100.f);
+		for (size_t i = 0; i < 3; i++)
+		{
+
+			
+		
+
+			PR.push_back(temp1);
+		}
+		
+		
 		
 	}
 	static void new_game()
@@ -54,8 +84,41 @@ public:
 	{
 		float dts = deltatime.asSeconds();
 		bird_move(dts);
+		
+		col_move(dts);
+	}
+	
+	for (size_t i = 0; i < PR.size(); i++)
+	{
+		window->draw(PR[i].s1); 
+		window->draw(PR[i].s2);
 	}
 	window->draw(bird);
+	
+	}
+	static void col_move(float dts) {
+		for (size_t i = 0; i < PR.size(); i++)
+		{
+			bool fl=true;
+			if (PR[i].s1.getPosition().x <= -170) {
+				PR[i].s1.setPosition(sf::Vector2f(1124, 0));
+				
+				srand(time(NULL));
+				int p = rand() % 6 + 1;
+				PR[i].s1.setSize(sf::Vector2f(PR[i].s1.getSize().x, 100.f * p));
+				PR[i].s2.setSize(sf::Vector2f(PR[i].s2.getSize().x, 768 - PR[i].s1.getSize().y-100));
+				PR[i].s2.setPosition(sf::Vector2f(1124, 768 - PR[i].s1.getSize().y - 100));
+			}
+			if (i > 0) {
+				if ((PR[i].s1.getPosition().x - PR[i - 1].s1.getPosition().x)<=400&& (PR[i].s1.getPosition().x - PR[i - 1].s1.getPosition().x) >= -400) {
+					fl = false;
+				}
+			}
+			if (fl) {
+				PR[i].s1.move(-200.f * dts, 0);
+				PR[i].s2.move(-200.f * dts, 0);
+			}
+		}
 	}
 	static void game_event(sf::Event* event) {
 		if (event->type == sf::Event::KeyPressed) {
@@ -94,14 +157,14 @@ public:
 			add_impulse(-5.f * dts * 0.1f);
 			if (angle >= -15)
 			{
-				angle -= 180.f * dts;
+				angle -= 360.f * dts;
 			}
 		}
 		else
 		{
-			if (angle<=45)
+			if (angle<=45.f)
 			{
-				angle += 45.f * dts;
+				angle += 30.f * dts;
 			}
 		}
 		if (y <= 760.f) {
@@ -119,6 +182,7 @@ public:
 		bird.setTexture(bird_tx[spt]);
 		bird.setPosition(x, y);
 	}
+	
 	
 	
 };
