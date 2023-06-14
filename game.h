@@ -36,7 +36,7 @@ public:
 	/// </summary>
 	/// <param name="window">Главное окно</param>
 	/// <param name="event">Событие</param>
-	static void on_game(sf::RenderWindow* window, sf::Event* event) {
+	static void on_game(sf::RenderWindow* window) {
 
 
 		
