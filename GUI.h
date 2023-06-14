@@ -3,6 +3,7 @@
 #include <imgui-SFML.h>
 class GUI
 {
+public:
 	static void MainMenu(bool& onGame,bool& onMainMenu)
 	{
 		if (ImGui::Button(u8"Играть"))
