@@ -4,6 +4,7 @@ sf::Sprite game::bird;
 float game::y;
 float game::x;
 float game::velocity;
+float game::angle = 0.f;
 bool game::spt;
 float game::g;
 //

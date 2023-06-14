@@ -15,6 +15,7 @@ private:
 	//координаты птички 
 	static float x, y;
 	static float velocity;
+	static float angle;
 	static bool spt;
 	static float g;
 public:
@@ -35,39 +36,26 @@ public:
 		bird.setPosition(x, y);
 		
 	}
+	static void new_game()
+	{
+		x = 1024.f / 2.f - 36.f;
+		y = 360.f;
+		velocity = 0.f;
+		bird.setPosition(x, y);
+		angle = 0.f;
+	}
 	/// <summary>
 	/// Отрисовка игровых объектов
 	/// </summary>
 	/// <param name="window">Главное окно</param>
 	/// <param name="event">Событие</param>
-	static void on_game(sf::RenderWindow* window, sf::Time deltatime) {
-	float dts = deltatime.asSeconds();
-	velocity += g * dts * 0.01f;
-	if (velocity >= 10) {
-		velocity = 10.f;
+	static void on_game(sf::RenderWindow* window, sf::Time deltatime, bool pause) {
+	if (!pause)
+	{
+		float dts = deltatime.asSeconds();
+		bird_move(dts);
 	}
-	if (spt) {
-		add_impulse(-5.f*dts*0.1f);
-	}
-	if (y <= 760.f) {
-		
-		y += velocity;
-	}
-	else {
-		y = 5.f;
-
-	}
-	if (y <= 4.f) {
-		y = 758.f;
-	}
-
-	bird.setTexture(bird_tx[spt]);
-	bird.setPosition(x, y);
 	window->draw(bird);
-
-		
-
-
 	}
 	static void game_event(sf::Event* event) {
 		if (event->type == sf::Event::KeyPressed) {
@@ -94,6 +82,42 @@ public:
 	}
 	static void add_impulse(float impulse) {
 		velocity += impulse;
+	}
+	static void bird_move(float dts)
+	{
+		
+		velocity += g * dts * 0.01f;
+		if (velocity >= 10) {
+			velocity = 10.f;
+		}
+		if (spt) {
+			add_impulse(-5.f * dts * 0.1f);
+			if (angle >= -15)
+			{
+				angle -= 180.f * dts;
+			}
+		}
+		else
+		{
+			if (angle<=45)
+			{
+				angle += 45.f * dts;
+			}
+		}
+		if (y <= 760.f) {
+
+			y += velocity;
+		}
+		else {
+			y = 5.f;
+
+		}
+		if (y <= 4.f) {
+			y = 758.f;
+		}
+		bird.setRotation(angle);
+		bird.setTexture(bird_tx[spt]);
+		bird.setPosition(x, y);
 	}
 	
 	

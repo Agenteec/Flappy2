@@ -71,9 +71,17 @@ public:
 				}
 			}
 			ImGui::SFML::Update(*window, sf::seconds(1.f / 60.f));
-			if (onGame){game::on_game(window, deltatime);}
+			if (onGame){
+				game::on_game(window, deltatime,onPauseMenu);
+			}
 			if (onMainMenu){GUI::MainMenu(onGame,onMainMenu);}
-			if (onPauseMenu) { GUI::PauseMenu(onGame, onMainMenu, onPauseMenu); }
+			if (onPauseMenu) { 
+				GUI::PauseMenu(onGame, onMainMenu, onPauseMenu);
+				if (onMainMenu)
+				{
+					game::new_game();
+				}
+			}
 			//**//
 			
 			ImGui::SFML::Render(*window);
