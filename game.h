@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include<iostream>
 #include <random>
+#include <string.h>
+#include <sstream>
 
 
 struct PairRect
@@ -57,7 +59,9 @@ public:
 			}       
 		score_txt.setFont(font);
 		score_txt.setFillColor(sf::Color(255, 255, 255));
-		score_txt.setString(L"Ñ÷¸ò: " + std::to_string(score));
+		std::stringstream ss;
+		std::wstring str=L"Ñ÷¸ò: "+std::to_wstring(score);
+		score_txt.setString(str);
 		score_txt.setCharacterSize(30);
 		score_txt.setPosition(800.f, 50.f);
 		PairRect temp1;
