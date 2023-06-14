@@ -17,7 +17,6 @@ private:
 	static int speed;
 	static bool spt;
 	static const int g = 10;
-	static sf::Clock clock;
 public:
 	/// <summary>
 	/// Загрузка игровых объектов
@@ -40,8 +39,7 @@ public:
 	/// </summary>
 	/// <param name="window">Главное окно</param>
 	/// <param name="event">Событие</param>
-	static void on_game(sf::RenderWindow* window) {
-	sf::Time deltatime = clock.restart();
+	static void on_game(sf::RenderWindow* window, sf::Time deltatime) {
 	float dts = deltatime.asSeconds();
 	if (y <= 760.f) {
 		y += speed * dts;

@@ -45,9 +45,11 @@ public:
 	/// </summary>
 	void Render()
 	{
+		sf::Clock clock;
 
 		while (window->isOpen())
 		{
+			sf::Time deltatime = clock.restart();
 			sf::Event* event= new sf::Event;
 			window->clear(sf::Color(0, 0, 0));
 			//**//
@@ -69,7 +71,7 @@ public:
 				}
 			}
 			ImGui::SFML::Update(*window, sf::seconds(1.f / 60.f));
-			if (onGame){game::on_game(window);}
+			if (onGame){game::on_game(window, deltatime);}
 			if (onMainMenu){GUI::MainMenu(onGame,onMainMenu);}
 			if (onPauseMenu) { GUI::PauseMenu(onGame, onMainMenu, onPauseMenu); }
 			//**//
