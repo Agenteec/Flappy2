@@ -59,18 +59,18 @@ public:
 		}
 		ImGui::End();
 	}
-	static void GameOverMenu()
+	static void GameOverMenu(bool& GameOver,bool& onRestart,bool& onMainMenu,bool& onGame)
 	{
 		ImVec2 windowSize(300, 250);
 		ImVec2 windowPos((ImGui::GetIO().DisplaySize.x - windowSize.x) * 0.55f, (ImGui::GetIO().DisplaySize.y - windowSize.y) * 0.5f);
 		ImGui::SetNextWindowPos(windowPos, ImGuiCond_Appearing);
 		ImGui::SetNextWindowSize(windowSize);
 
-		if (ImGui::Begin(u8"Игра окончена", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDecoration  | ImGuiWindowFlags_NoMove)) {
+		if (ImGui::Begin(u8"Игра окончена", nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoDecoration  | ImGuiWindowFlags_NoMove| ImGuiWindowFlags_NoBackground)) {
 			ImGui::SetNextWindowBgAlpha(0.5f);
-			if (ImGui::Button(u8"Заного", ImVec2(200, 50))) {  }
+			if (ImGui::Button(u8"Заного", ImVec2(200, 50))) { GameOver = 0; onRestart = 1; }
 			ImGui::Spacing;
-			if (ImGui::Button(u8"Выйти в главное меню", ImVec2(200, 50))) { }
+			if (ImGui::Button(u8"Выйти в главное меню", ImVec2(200, 50))) { GameOver = 0; onRestart = 1; onMainMenu = 1; onGame = 0; }
 		}
 		ImGui::End();
 	}

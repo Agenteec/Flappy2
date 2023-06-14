@@ -25,13 +25,18 @@ class Window
 	bool onMainMenu;
 
 	bool onPauseMenu;
+	bool GameOver;
+
+	bool onRestart;
 public:
 	Window():
 		WinW(1024.f),
 		WinH(768.f),
 		onGame(false),
 		onMainMenu(true),
-		onPauseMenu(false)
+		onPauseMenu(false),
+		GameOver(false),
+		onRestart(false)
 
 	{
 		//Выделение памяти под оно SFML
@@ -71,8 +76,13 @@ public:
 				}
 			}
 			ImGui::SFML::Update(*window, sf::seconds(1.f / 60.f));
+			if (onRestart)
+			{
+				game::new_game();
+				onRestart = 0;
+			}
 			if (onGame){
-				game::on_game(window, deltatime,onPauseMenu);
+				game::on_game(window, deltatime,onPauseMenu,GameOver);
 			}
 			if (onMainMenu){GUI::MainMenu(onGame,onMainMenu);}
 			if (onPauseMenu) { 
@@ -81,6 +91,10 @@ public:
 				{
 					game::new_game();
 				}
+			}
+			if (GameOver)
+			{
+				GUI::GameOverMenu(GameOver, onRestart, onMainMenu,onGame);
 			}
 			//**//
 			

@@ -11,7 +11,8 @@ struct PairRect
 {
 	sf::RectangleShape s1;
     sf::RectangleShape s2;
-	
+	sf::RectangleShape trigger;
+	bool onTrigget;
 };
 class game
 {
@@ -36,6 +37,9 @@ private:
 	static sf::Font font;
 	static sf::SoundBuffer ChBuff[6];
 	static sf::Sound Ch;
+
+	static sf::SoundBuffer BoomBuff;
+	static sf::Sound Boom;
 public:
 	/// <summary>
 	/// Загрузка игровых объектов
@@ -74,6 +78,7 @@ public:
 		temp1.s2.setFillColor(sf::Color(36, 252, 49));
 		temp1.s1.setPosition(-300.f, 0.f);
 		temp1.s2.setPosition(-300.f, 768.f - 100.f-100.f);
+		temp1.trigger.setSize(sf::Vector2f(10, 30000));
 		for (size_t i = 0; i < 3; i++)
 		{
 			PR.push_back(temp1);
@@ -85,6 +90,8 @@ public:
 		ChBuff[3].loadFromFile("Resources\\Sounds\\Ch\\ch4.wav");
 		ChBuff[4].loadFromFile("Resources\\Sounds\\Ch\\ch5.wav");
 		ChBuff[5].loadFromFile("Resources\\Sounds\\Ch\\ch6.wav");
+		BoomBuff.loadFromFile("Resources\\Sounds\\Boom\\bam.wav");
+		Boom.setBuffer(BoomBuff);
 		
 	}
 	static void new_game()
@@ -94,20 +101,28 @@ public:
 		velocity = 0.f;
 		bird.setPosition(x, y);
 		angle = 0.f;
+		for (size_t i = 0; i < 3; i++)
+		{
+			PR[i].s1.setPosition(-300.f, 0.f);
+			PR[i].s2.setPosition(-300.f, 768.f - 100.f - 100.f);
+			PR[i].trigger.setPosition(-300.f, 0);
+
+		}
+		score = 0;
 	}
 	/// <summary>
 	/// Отрисовка игровых объектов
 	/// </summary>
 	/// <param name="window">Главное окно</param>
 	/// <param name="event">Событие</param>
-	static void on_game(sf::RenderWindow* window, sf::Time deltatime, bool pause) {
-	if (!pause)
+	static void on_game(sf::RenderWindow* window, sf::Time deltatime, bool pause,bool& GameOwer) {
+	if (!pause && !GameOwer)
 	{
 		float dts = deltatime.asSeconds();
 		bird_move(dts);
 		
-		col_move(dts);
-
+		col_move(dts,GameOwer);
+		
 	}
 	
 	for (size_t i = 0; i < PR.size(); i++)
@@ -119,7 +134,7 @@ public:
 	window->draw(score_txt);
 	
 	}
-	static void col_move(float dts) {
+	static void col_move(float dts,bool& GameOwer) {
 		for (size_t i = 0; i < PR.size(); i++)
 		{
 			bool fl=true;
@@ -127,6 +142,8 @@ public:
 				int p = rand() %6  + 0;
 				PR[i].s1.setPosition(sf::Vector2f(1124, -PR[i].s1.getSize().y + 100.f * p));
 				PR[i].s2.setPosition(sf::Vector2f(1124, PR[i].s1.getSize().y + PR[i].s1.getPosition().y + 150.f));
+				PR[i].trigger.setPosition(sf::Vector2f(1135, 0));
+				PR[i].onTrigget = false;
 			}
 			if (i > 0) {
 				if ((PR[i].s1.getPosition().x - PR[i - 1].s1.getPosition().x)<=400&& (PR[i].s1.getPosition().x - PR[i - 1].s1.getPosition().x) >= -400) {
@@ -136,7 +153,25 @@ public:
 			if (fl) {
 				PR[i].s1.move(-200.f * dts, 0);
 				PR[i].s2.move(-200.f * dts, 0);
+				PR[i].trigger.move(-200.f * dts, 0);
 			}
+			if (bird.getGlobalBounds().intersects(PR[i].s1.getGlobalBounds())|| bird.getGlobalBounds().intersects(PR[i].s2.getGlobalBounds()))
+			{
+				GameOwer = 1;
+				Boom.play();
+			}
+			if (bird.getGlobalBounds().intersects(PR[i].trigger.getGlobalBounds()))
+			{
+				if (!PR[i].onTrigget)
+				{
+					PR[i].onTrigget = 1;
+					game::score++;
+					std::wstring str = L"Счёт: " + std::to_wstring(score);
+					score_txt.setString(str);
+					
+				}
+			}
+
 		}
 	}
 	static void game_event(sf::Event* event) {
@@ -201,6 +236,7 @@ public:
 		if (y <= -35.f) {
 			y = 758.f;
 		}
+
 		bird.setRotation(angle);
 		bird.setTexture(bird_tx[spt]);
 		bird.setPosition(x, y);
