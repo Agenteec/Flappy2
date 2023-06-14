@@ -23,9 +23,9 @@ public:
 		bird_tx[0].loadFromFile("Resources\\Images\\bird_1.png");
 		bird_tx[1].loadFromFile("Resources\\Images\\bird_2.png");
 		bird.setTexture(bird_tx[0]);
-		x = 200;
-		y = 200;
-		speed = 100;
+		x = 200.f;
+		y = 200.f;
+		speed = 100.f;
 		bird.setPosition(x, y);
 		bird.setScale(0.2f, 0.2f);
 	}
@@ -49,17 +49,17 @@ public:
 	sf::Clock clock;
 	sf::Time deltatime = clock.restart();
 	float dts = deltatime.asSeconds();
-	if (y <= 760) {
+	if (y <= 760.f) {
 		y += speed * dts;
 	}
 	else {
-		y = 5;
+		y = 5.f;
 
 	}
 
 
-		bird.setPosition(x, y);
-		window->draw(bird);
+	bird.setPosition(x, y);
+	window->draw(bird);
 
 		
 
