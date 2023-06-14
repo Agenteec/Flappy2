@@ -34,31 +34,31 @@ public:
 	/// </summary>
 	/// <param name="window">Главное окно</param>
 	/// <param name="event">Событие</param>
-	static void on_game(sf::RenderWindow *window, sf::Event *event) {
-		
-		
-			if (event->type == sf::Event::KeyPressed) {
-				if (event->key.code == sf::Keyboard::Space) {
-					bird.setTexture(bird_tx[1]);
-				}
-				else {
-					bird.setTexture(bird_tx[0]);
-				}
+	static void on_game(sf::RenderWindow* window, sf::Event* event) {
+
+
+		if (event->type == sf::Event::KeyPressed) {
+			if (event->key.code == sf::Keyboard::Space) {
+				bird.setTexture(bird_tx[1]);
+			}
+			else {
+				bird.setTexture(bird_tx[0]);
 			}
 		}
-		sf::Clock clock;
-		sf::Time deltatime = clock.restart();
-		float dts = deltatime.asSeconds();
-		if (y <= 760) {
-			y += speed * dts;
-		}
-		else {
-			y = 5;
 
-		}
+	sf::Clock clock;
+	sf::Time deltatime = clock.restart();
+	float dts = deltatime.asSeconds();
+	if (y <= 760) {
+		y += speed * dts;
+	}
+	else {
+		y = 5;
+
+	}
+
 
 		bird.setPosition(x, y);
-		window->clear(sf::Color(0, 0, 0));
 		window->draw(bird);
 
 		
