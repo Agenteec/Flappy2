@@ -109,6 +109,8 @@ public:
 
 		}
 		score = 0;
+		std::wstring str = L"Счёт: " + std::to_wstring(score);
+		score_txt.setString(str);
 	}
 	/// <summary>
 	/// Отрисовка игровых объектов
