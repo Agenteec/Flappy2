@@ -23,12 +23,15 @@ class Window
 	bool onGame;
 
 	bool onMainMenu;
+
+	bool onPauseMenu;
 public:
 	Window():
 		WinW(1024.f),
 		WinH(768.f),
 		onGame(false),
-		onMainMenu(true)
+		onMainMenu(true),
+		onPauseMenu(false)
 
 	{
 		//Выделение памяти под оно SFML
@@ -56,6 +59,13 @@ public:
 				if (onGame)
 				{
 					game::game_event(event);
+				}
+				if (event->type == sf::Event::KeyPressed)
+				{
+					if (event->key.code == sf::Keyboard::Escape&&!onMainMenu)
+					{
+
+					}
 				}
 			}
 			ImGui::SFML::Update(*window, sf::seconds(1.f / 60.f));
@@ -93,16 +103,16 @@ private:
 		ImGui::SFML::UpdateFontTexture();
 
 		// Настройка стилей для imgui
-		ImGui::StyleColorsClassic();
+		ImGui::StyleColorsLight();
 		ImGui::GetStyle().WindowBorderSize = 0.f;
 
 		ImGuiStyle& style = ImGui::GetStyle(); // получаем текущий стиль
 
 		// изменяем цвет фона кнопок
-		style.Colors[ImGuiCol_Button] = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);
+		style.Colors[ImGuiCol_Button] = ImVec4(255.0f / 255.f, 21.0f / 255.f, 102.0f / 255.f, 1.0f);
 
 		// изменяем цвет текста на кнопке
-		style.Colors[ImGuiCol_Text] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+		style.Colors[ImGuiCol_Text] = ImVec4(250.0f / 255.f, 250.0f / 255.f, 255.0f / 255.f, 1.0f);
 
 		// изменяем отступ вокруг кнопки
 		style.FramePadding = ImVec2(10.0f, 5.0f);
