@@ -25,11 +25,11 @@ public:
 		bird_tx[1].loadFromFile("Resources\\Images\\bird_2.png");
 		//bird.setTexture(bird_tx[0]);
 		spt = false;
-		x = 200.f;
-		y = 200.f;
-		speed = 100.f;
+		x = 400.f;
+		y = 360.f;
+		speed = 200.f;
 		bird.setPosition(x, y);
-		bird.setScale(0.2f, 0.2f);
+		bird.setScale(0.05f, 0.05f);
 	}
 	/// <summary>
 	/// Отрисовка игровых объектов
@@ -51,12 +51,8 @@ public:
 		y = 5.f;
 
 	}
-	if (spt == true) {
-		bird.setTexture(bird_tx[1]);
-	}
-	else {
-		bird.setTexture(bird_tx[0]);
-	}
+		bird.setTexture(bird_tx[spt]);
+	
 
 	bird.setPosition(x, y);
 	window->draw(bird);
@@ -72,8 +68,18 @@ public:
 			}
 			
 		}
+		if (event->type == sf::Event::MouseButtonPressed) {
+			if (event->key.code == sf::Mouse::Left) {
+				spt = true;
+			}
+		}
 		if (event->type == sf::Event::KeyReleased) {
 			if (event->key.code == sf::Keyboard::Space) {
+				spt = false;
+			}
+		}
+		if (event->type == sf::Event::MouseButtonReleased) {
+			if (event->key.code == sf::Mouse::Left) {
 				spt = false;
 			}
 		}
